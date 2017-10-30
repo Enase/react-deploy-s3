@@ -10,11 +10,13 @@ export default async ({accessKeyId, secretAccessKey, bucket, region, shouldBuild
     await build()
   }
 
-  AWS.config.update({
-    accessKeyId,
-    secretAccessKey,
-    region
-  })
+  if (accessKeyId && secretAccessKey && region) {
+    AWS.config.update({
+      accessKeyId,
+      secretAccessKey,
+      region
+    })
+  }
 
   const s3 = new AWS.S3()
   await clean({s3, bucket})

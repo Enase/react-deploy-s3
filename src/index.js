@@ -28,13 +28,13 @@ program
   )
   .action(async function(cmd, options) {
     try {
-      if (!cmd.accessKeyId) {
-        throw new Error('access-key-id is required')
-      }
-
-      if (!cmd.secretAccessKey) {
-        throw new Error('secret-access-key is required')
-      }
+      // if (!cmd.accessKeyId) {
+      //   throw new Error('access-key-id is required')
+      // }
+      //
+      // if (!cmd.secretAccessKey) {
+      //   throw new Error('secret-access-key is required')
+      // }
 
       if (!cmd.bucket) {
         throw new Error('bucket is required')
