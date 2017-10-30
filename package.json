@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "babel ./src --out-dir ./build",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "watch": "node watch.js"
   },
   "author": "Nicolás López <nicolaslopezj@me.com>",
