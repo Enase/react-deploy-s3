@@ -76,84 +76,129 @@ function execFile() {
  * @return {Promise}
  */
 function doSpawn(method, command, args, options) {
-    var result = {};
-
-    var cp;
-    var cpPromise = new ChildProcessPromise();
-    var reject = cpPromise._cpReject;
-    var resolve = cpPromise._cpResolve;
-
-    var successfulExitCodes = (options && options.successfulExitCodes) || [0];
-
-    cp = method(command, args, options);
-
-    // Don't return the whole Buffered result by default.
-    var captureStdout = false;
-    var captureStderr = false;
-
-    var capture = options && options.capture;
-    if (capture) {
-        for (var i = 0, len = capture.length; i < len; i++) {
-            var cur = capture[i];
-            if (cur === 'stdout') {
-                captureStdout = true;
-            } else if (cur === 'stderr') {
-                captureStderr = true;
-            }
-        }
-    }
-
-    result.childProcess = cp;
-
-    if (captureStdout) {
-        result.stdout = '';
-
-        cp.stdout.on('data', function (data) {
-            result.stdout += data;
-        });
-    }
-
-    if (captureStderr) {
-        result.stderr = '';
-
-        cp.stderr.on('data', function (data) {
-            result.stderr += data;
-        });
-    }
-
-    cp.on('error', reject);
-
-    cp.on('close', function (code) {
-        if (successfulExitCodes.indexOf(code) === -1) {
-            var commandStr = command + (args.length ? (' ' + args.join(' ')) : '');
-            var err = {
-                code: code,
-                message: '`' + commandStr + '` failed with code ' + code,
-                childProcess: cp,
-                toString() {
-                    return this.message;
+    let child;
+    let promise = new Promise((resolve, reject) => {
+        let stdout = '';
+        let stderr = '';
+        child = method(command, args, options)
+            .on('close', (code, signal) => {
+                if (code !== 0) {
+                    const error = new Error('Exited with code ' + code);
+                    error.code = code;
+                    error.stderr = stderr;
+                    error.stdout = stdout;
+                    error.signal = signal;
+                    reject(error);
+                } else {
+                    resolve({
+                        code: code,
+                        signal: signal,
+                        stderr: stderr,
+                        stdout: stdout
+                    });
                 }
-            };
+            })
+            .on('error', (error) => {
+                error.stdout = stdout;
+                error.stderr = stderr;
+                reject(error);
+            });
 
-            if (captureStderr) {
-                err.stderr = result.stderr.toString();
-            }
-
-            if (captureStdout) {
-                err.stdout = result.stdout.toString();
-            }
-
-            reject(err);
+        if (child.stdout) {
+            child.stdout
+                .setEncoding('utf8')
+                .on('data', (data) => {
+                    stdout += data;
+                });
         }
-        else {
-            result.code = code;
-            resolve(result);
+        if (child.stderr) {
+            child.stderr
+                .setEncoding('utf8')
+                .on('data', (data) => {
+                    stderr += data;
+                });
         }
     });
-
-    cpPromise.childProcess = cp;
-
-    return cpPromise;
+    promise.child = child;
+    return promise;
+    // var result = {};
+    //
+    // var cp;
+    // var cpPromise = new ChildProcessPromise();
+    // var reject = cpPromise._cpReject;
+    // var resolve = cpPromise._cpResolve;
+    //
+    // var successfulExitCodes = (options && options.successfulExitCodes) || [0];
+    //
+    // cp = method(command, args, options);
+    //
+    // // Don't return the whole Buffered result by default.
+    // var captureStdout = false;
+    // var captureStderr = false;
+    //
+    // var capture = options && options.capture;
+    // if (capture) {
+    //     for (var i = 0, len = capture.length; i < len; i++) {
+    //         var cur = capture[i];
+    //         if (cur === 'stdout') {
+    //             captureStdout = true;
+    //         } else if (cur === 'stderr') {
+    //             captureStderr = true;
+    //         }
+    //     }
+    // }
+    //
+    // result.childProcess = cp;
+    //
+    // if (captureStdout) {
+    //     result.stdout = '';
+    //
+    //     cp.stdout.on('data', function (data) {
+    //         result.stdout += data;
+    //     });
+    // }
+    //
+    // if (captureStderr) {
+    //     result.stderr = '';
+    //
+    //     cp.stderr.on('data', function (data) {
+    //         result.stderr += data;
+    //     });
+    // }
+    //
+    // cp.on('error', reject);
+    //
+    // cp.on('close', function (code) {
+    //     if (successfulExitCodes.indexOf(code) === -1) {
+    //         var commandStr = command + (args.length ? (' ' + args.join(' ')) : '');
+    //         var err = {
+    //             code: code,
+    //             message: '`' + commandStr + '` failed with code ' + code,
+    //             childProcess: cp,
+    //             toString() {
+    //                 return this.message;
+    //             }
+    //         };
+    //
+    //         if (captureStderr) {
+    //             err.stderr = result.stderr.toString();
+    //         }
+    //
+    //         if (captureStdout) {
+    //             err.stdout = result.stdout.toString();
+    //         }
+    //
+    //         reject(err);
+    //     }
+    //     else {
+    //         result.code = code;
+    //         resolve(result);
+    //     }
+    // });
+    //
+    // cpPromise.childProcess = cp;
+    //
+    // return cpPromise;
 }
 
 function spawn(command, args, options) {
