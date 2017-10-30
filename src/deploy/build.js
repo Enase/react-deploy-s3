@@ -1,10 +1,11 @@
 import {Spinner} from 'cli-spinner'
 import clc from 'cli-color'
 // import {spawn} from 'child-process-promise'
+const spawn = require('child_process').spawn;
 
 const runBuild = () => {
   return new Promise((resolve, reject) => {
-    const child = process.spawn('npm run build', [], { cwd: process.cwd(), env: process.env });
+    const child = spawn('npm run build', [], { cwd: process.cwd(), env: process.env });
 
     child.stdout.on('data', function (data) {
       console.log('stdout: ' + data);
