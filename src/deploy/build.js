@@ -1,6 +1,6 @@
 import {Spinner} from 'cli-spinner'
 import clc from 'cli-color'
-import {spawn} from 'child-process-promise'
+import {spawn} from '../lib'
 
 export default async () => {
   let spinner = new Spinner('%s Building app...')
