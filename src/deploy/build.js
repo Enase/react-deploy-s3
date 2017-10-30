@@ -4,7 +4,7 @@ import {spawn} from 'child_process'
 
 const runBuild = () => {
   return new Promise((resolve, reject) => {
-    const child = spawn('npm run build', [], { cwd: process.cwd(), env: process.env });
+    const child = spawn('npm run build', [], { cwd: process.cwd(), env: process.env, shell: true });
 
     child.stdout.on('data', function (data) {
       console.log(data);
