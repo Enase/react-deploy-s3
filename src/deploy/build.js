@@ -7,8 +7,7 @@ export default async () => {
   spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏')
   spinner.start()
 
-  console.log('process.cwd()', process.cwd())
-  await spawn('npm run build', [], process.cwd())
+  await spawn('npm run build', [], { cwd: process.cwd(), env: process.env })
 
   spinner.stop(true)
 
