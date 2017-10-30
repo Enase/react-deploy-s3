@@ -1,7 +1,6 @@
 import {Spinner} from 'cli-spinner'
 import clc from 'cli-color'
-import {spawn} from 'child-process-promise'
-// import {spawn} from 'child_process'
+import {spawn} from 'child_process'
 
 const runBuild = () => {
   return new Promise((resolve, reject) => {
@@ -31,8 +30,7 @@ export default async () => {
   spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏')
   spinner.start()
 
-  await spawn('npm run build', [], { cwd: process.cwd(), env: process.env, shell: true })
-  // await runBuild()
+  await runBuild()
 
   spinner.stop(true)
 
