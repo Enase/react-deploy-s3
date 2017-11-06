@@ -15,8 +15,8 @@ export default async function({accessKeyId, secretAccessKey, distributionId}) {
     InvalidationBatch: {
       CallerReference: 'react-deploy-s3-' + timestamp,
       Paths: {
-        Quantity: 2,
-        Items: ['/index.html', '/static/*']
+        Quantity: 1,
+        Items: ['/*']
       }
     }
   }
