@@ -3,6 +3,7 @@ import invalidate from './invalidate'
 import clc from 'cli-color'
 
 export default async function({
+  buildEnv,
   accessKeyId,
   secretAccessKey,
   bucket,
@@ -12,6 +13,7 @@ export default async function({
 }) {
   console.log('\n' + clc.blue.underline('React deploy S3') + '\n')
   await upload({
+    buildEnv: buildEnv,
     accessKeyId: accessKeyId,
     secretAccessKey: secretAccessKey,
     bucket: bucket,

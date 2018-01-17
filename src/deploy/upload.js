@@ -5,9 +5,9 @@ import {Spinner} from 'cli-spinner'
 import build from './build'
 import uploadFile from './uploadFile'
 
-export default async ({accessKeyId, secretAccessKey, bucket, region, shouldBuild}) => {
+export default async ({buildEnv, accessKeyId, secretAccessKey, bucket, region, shouldBuild}) => {
   if (shouldBuild) {
-    await build()
+    await build(buildEnv)
   }
 
   if (accessKeyId && secretAccessKey && region) {

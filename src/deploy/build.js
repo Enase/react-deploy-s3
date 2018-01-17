@@ -2,9 +2,9 @@ import {Spinner} from 'cli-spinner'
 import clc from 'cli-color'
 import {spawn} from 'child_process'
 
-const runBuild = () => {
+const runBuild = (buildEnv) => {
   return new Promise((resolve, reject) => {
-    const child = spawn('npm run build', [], { cwd: process.cwd(), env: process.env, shell: true });
+    const child = spawn('npm run build:' + buildEnv, [], { cwd: process.cwd(), env: process.env, shell: true });
 
     child.stdout.on('data', function (data) {
       console.log(String(data));

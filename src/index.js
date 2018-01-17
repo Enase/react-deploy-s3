@@ -17,6 +17,7 @@ program
 program
   .command('deploy')
   .description('Deploy a new build of your app')
+  .option('-e, --env [environment]', 'Set build environment')
   .option('-a, --access-key-id [accessKey]', 'AWS access key')
   .option('-s, --secret-access-key [secretKey]', 'AWS secret access key')
   .option('-b, --bucket [bucket]', 'Name of the bucket')
