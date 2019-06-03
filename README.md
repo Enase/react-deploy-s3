@@ -9,7 +9,7 @@ Deploy create react app's in AWS S3
 ### Install the tool
 
 ```sh
-yarn global add react-deploy-s3
+yarn global add @haftahave/react-deploy-s3
 ```
 
 ### Attach policy to user in AWS
