@@ -7,7 +7,7 @@ export default async function ({ bucket, file, spinner }) {
   const s3 = new AWS.S3();
   const stream = fs.createReadStream(file);
   const stats = fs.statSync(file);
-  const contentType = mime.lookup(file);
+  const contentType = mime.getType(file);
   const fileName = file.replace(/^build\//, '');
   const size = filesize(stats.size);
   return new Promise(function (resolve, reject) {
