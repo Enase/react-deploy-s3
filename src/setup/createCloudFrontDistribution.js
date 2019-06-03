@@ -1,21 +1,21 @@
-import inquirer from 'inquirer'
-import requestSSL from './requestSSL'
-import {Spinner} from 'cli-spinner'
+import inquirer from 'inquirer';
+import requestSSL from './requestSSL';
+import { Spinner } from 'cli-spinner';
 
 export default async function (cloudfront, bucketName) {
-  const {aliases} = await inquirer.prompt([
-    {type: 'input', name: 'aliases', message: 'Aliases (CNAME). Separate with comma'}
-  ])
+  const { aliases } = await inquirer.prompt([
+    { type: 'input', name: 'aliases', message: 'Aliases (CNAME). Separate with comma' }
+  ]);
 
-  const domains = aliases.split(',').map(alias => alias.trim())
-  let sslACM = null
+  const domains = aliases.split(',').map(alias => alias.trim());
+  let sslACM = null;
   if (domains && domains.length) {
-    const {addSSL} = await inquirer.prompt([
-      {type: 'confirm', name: 'addSSL', message: 'Request a AWS managed SSL for the domains'}
-    ])
+    const { addSSL } = await inquirer.prompt([
+      { type: 'confirm', name: 'addSSL', message: 'Request a AWS managed SSL for the domains' }
+    ]);
     if (addSSL) {
-      console.log('')
-      sslACM = await requestSSL(domains)
+      console.log('');
+      sslACM = await requestSSL(domains);
     }
   }
 
@@ -89,18 +89,18 @@ export default async function (cloudfront, bucketName) {
         SSLSupportMethod: 'sni-only'
       } : undefined
     }
-  }
+  };
 
-  console.log('')
+  console.log('');
 
-  let spinner = new Spinner('%s Creating CloudFront distribution...')
-  spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏')
-  spinner.start()
+  let spinner = new Spinner('%s Creating CloudFront distribution...');
+  spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
+  spinner.start();
 
-  const {Distribution: {Id}} = await cloudfront.createDistribution(params).promise()
+  const { Distribution: { Id } } = await cloudfront.createDistribution(params).promise();
 
-  spinner.stop(true)
+  spinner.stop(true);
 
-  console.log(`CloudFront ready. Save the distribution id ${Id}`)
-  return Id
+  console.log(`CloudFront ready. Save the distribution id ${Id}`);
+  return Id;
 }

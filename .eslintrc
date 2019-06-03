@@ -1,3 +1,6 @@
 {
-"extends": "orionsoft"
+  "extends": "standard",
+  "rules": {
+    "semi": ["error", "always"]
+  }
 }

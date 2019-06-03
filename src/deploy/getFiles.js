@@ -1,23 +1,23 @@
-import fs from 'fs'
+import fs from 'fs';
 
-const getFilesInDir = function(dir) {
-  var results = []
-  var list = fs.readdirSync(dir)
-  list.forEach(function(file) {
-    file = dir + '/' + file
-    var stat = fs.statSync(file)
+const getFilesInDir = function (dir) {
+  var results = [];
+  var list = fs.readdirSync(dir);
+  list.forEach(function (file) {
+    file = dir + '/' + file;
+    var stat = fs.statSync(file);
     if (stat && stat.isDirectory()) {
-      results = results.concat(getFilesInDir(file))
+      results = results.concat(getFilesInDir(file));
     } else {
       if (!file.includes('.DS_Store')) {
-        results.push(file)
+        results.push(file);
       }
     }
-  })
-  return results
-}
+  });
+  return results;
+};
 
-export default function() {
-  const files = getFilesInDir('build')
-  return files
+export default function () {
+  const files = getFilesInDir('build');
+  return files;
 }

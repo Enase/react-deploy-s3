@@ -1,6 +1,6 @@
-import {Spinner} from 'cli-spinner'
-import clc from 'cli-color'
-import {spawn} from 'child_process'
+import { Spinner } from 'cli-spinner';
+import clc from 'cli-color';
+import { spawn } from 'child_process';
 
 const runBuild = (buildEnv) => {
   return new Promise((resolve, reject) => {
@@ -18,17 +18,17 @@ const runBuild = (buildEnv) => {
       console.log('child process exited with code ' + code);
       Number(code) === 0 ? resolve(code) : reject(code);
     });
-  })
+  });
 };
 
 export default async (buildEnv) => {
-  let spinner = new Spinner('%s Building app...')
-  spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏')
-  spinner.start()
+  let spinner = new Spinner('%s Building app...');
+  spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
+  spinner.start();
 
-  await runBuild(buildEnv)
+  await runBuild(buildEnv);
 
-  spinner.stop(true)
+  spinner.stop(true);
 
-  console.log(clc.bold('App built'))
-}
+  console.log(clc.bold('App built'));
+};

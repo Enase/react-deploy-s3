@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 
-import program from 'commander'
-import clc from 'cli-color'
-import setup from './setup'
-import deploy from './deploy'
+import program from 'commander';
+import clc from 'cli-color';
+import setup from './setup';
+import deploy from './deploy';
 
-program.version('2.0.0')
+program.version('2.0.0');
 
 program
   .command('setup')
   .description('Setup your AWS S3 and Cloudfront endpoints')
-  .action(async function(cmd, options) {
-    await setup()
-  })
+  .action(async function (cmd, options) {
+    await setup();
+  });
 
 program
   .command('deploy')
@@ -27,7 +27,7 @@ program
     '-d, --distribution-id [distribution-id]',
     'Cloudfront distrubution to invalidate index.html'
   )
-  .action(async function(cmd, options) {
+  .action(async function (cmd, options) {
     try {
       // if (!cmd.accessKeyId) {
       //   throw new Error('access-key-id is required')
@@ -38,14 +38,14 @@ program
       // }
 
       if (!cmd.bucket) {
-        throw new Error('bucket is required')
+        throw new Error('bucket is required');
       }
-      await deploy(cmd)
+      await deploy(cmd);
     } catch (error) {
-      console.log('\n' + clc.bold.red(error.message) + '\n')
-      console.log(error)
-      process.exit(1)
+      console.log('\n' + clc.bold.red(error.message) + '\n');
+      console.log(error);
+      process.exit(1);
     }
-  })
+  });
 
-program.parse(process.argv)
+program.parse(process.argv);

@@ -1,8 +1,8 @@
-import upload from './upload'
-import invalidate from './invalidate'
-import clc from 'cli-color'
+import upload from './upload';
+import invalidate from './invalidate';
+import clc from 'cli-color';
 
-export default async function({
+export default async function ({
   buildEnv,
   accessKeyId,
   secretAccessKey,
@@ -11,7 +11,7 @@ export default async function({
   distributionId,
   rebuildApp
 }) {
-  console.log('\n' + clc.blue.underline('React deploy S3') + '\n')
+  console.log('\n' + clc.blue.underline('React deploy S3') + '\n');
   await upload({
     buildEnv: buildEnv,
     accessKeyId: accessKeyId,
@@ -19,15 +19,15 @@ export default async function({
     bucket: bucket,
     region: region,
     shouldBuild: rebuildApp !== 'no'
-  })
-  console.log(clc.bold(`App deployed at "${bucket}"`))
+  });
+  console.log(clc.bold(`App deployed at "${bucket}"`));
 
   if (distributionId) {
     await invalidate({
       accessKeyId: accessKeyId,
       secretAccessKey: secretAccessKey,
       distributionId: distributionId
-    })
-    console.log(clc.bold(`Invalidation created`))
+    });
+    console.log(clc.bold(`Invalidation created`));
   }
 }
