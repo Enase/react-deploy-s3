@@ -1,11 +1,11 @@
 {
-  "name": "react-deploy-s3",
-  "version": "2.1.2",
+  "name": "@haftahave/react-deploy-s3",
+  "version": "1.0.0",
   "description": "Deploy create react app's in AWS S3",
   "main": "build/index.js",
   "preferGlobal": true,
   "repository": {
-    "url": "https://github.com/nicolaslopezj/react-deploy-s3",
+    "url": "https://github.com/Enase/react-deploy-s3.git",
     "type": "git"
   },
   "bin": {
