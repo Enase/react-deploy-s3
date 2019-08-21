@@ -23,10 +23,10 @@ export default async ({ buildEnv, accessKeyId, secretAccessKey, bucket, region, 
 
   const files = getFiles();
 
-  let spinner = new Spinner('%s');
+  const spinner = new Spinner('%s');
   spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
   spinner.start();
-  spinner.setSpinnerTitle(`%s   Uploading files...`);
+  spinner.setSpinnerTitle('%s   Uploading files...');
 
   const uploads = files.map(file => uploadFile({ bucket, file, spinner }));
 

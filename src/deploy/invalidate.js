@@ -5,7 +5,7 @@ export default async function ({ accessKeyId, secretAccessKey, distributionId })
   AWS.config.update({ accessKeyId, secretAccessKey });
   const cloudfront = new AWS.CloudFront();
 
-  let spinner = new Spinner('%s Creating invalidation');
+  const spinner = new Spinner('%s Creating invalidation');
   spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
   spinner.start();
 

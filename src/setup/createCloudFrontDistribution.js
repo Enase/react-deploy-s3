@@ -93,7 +93,7 @@ export default async function (cloudfront, bucketName) {
 
   console.log('');
 
-  let spinner = new Spinner('%s Creating CloudFront distribution...');
+  const spinner = new Spinner('%s Creating CloudFront distribution...');
   spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
   spinner.start();
 

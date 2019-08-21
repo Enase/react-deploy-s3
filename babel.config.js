@@ -2,7 +2,7 @@ module.exports = {
   compact: true,
   plugins: [
     ['@babel/plugin-transform-runtime', {
-      'regenerator': true
+      regenerator: true
     }]
   ],
   presets: [

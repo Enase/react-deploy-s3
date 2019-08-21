@@ -2,7 +2,7 @@ import { Spinner } from 'cli-spinner';
 import clc from 'cli-color';
 
 export default async ({ s3, bucket }) => {
-  let spinner = new Spinner('%s Removing old files...');
+  const spinner = new Spinner('%s Removing old files...');
   spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
   spinner.start();
 

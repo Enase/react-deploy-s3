@@ -28,6 +28,6 @@ export default async function ({
       secretAccessKey: secretAccessKey,
       distributionId: distributionId
     });
-    console.log(clc.bold(`Invalidation created`));
+    console.log(clc.bold('Invalidation created'));
   }
 }

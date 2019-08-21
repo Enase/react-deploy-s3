@@ -1,7 +1,7 @@
 import { Spinner } from 'cli-spinner';
 
 export default async function (s3, bucketName) {
-  let spinner = new Spinner('%s Configuring bucket...');
+  const spinner = new Spinner('%s Configuring bucket...');
   spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
   spinner.start();
 

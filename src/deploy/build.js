@@ -22,7 +22,7 @@ const runBuild = (buildEnv) => {
 };
 
 export default async (buildEnv) => {
-  let spinner = new Spinner('%s Building app...');
+  const spinner = new Spinner('%s Building app...');
   spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
   spinner.start();
 

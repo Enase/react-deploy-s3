@@ -59,7 +59,7 @@ export default async function (aliases) {
 
   console.log('Please check your email to accept the request');
 
-  let spinner = new Spinner('%s Don\'t close me, I will wait and check when you finish...');
+  const spinner = new Spinner('%s Don\'t close me, I will wait and check when you finish...');
   spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏');
   spinner.start();
 
